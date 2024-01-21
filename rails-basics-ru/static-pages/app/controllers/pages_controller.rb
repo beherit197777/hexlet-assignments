@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 class PagesController < ApplicationController
   def show
-    # @page = Page.find(params[:id])
+    @page = 'about'
   end
 end

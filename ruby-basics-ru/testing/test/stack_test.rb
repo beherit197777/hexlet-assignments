@@ -16,13 +16,13 @@ class StackTest < Minitest::Test
     stack.push!(1)
     assert stack.elements == [1]
   end
-  
+
   def test_clear
     stack = Stack.new([1, 23, 2])
     stack.clear!
     assert stack.elements.empty?
   end
-  
+
   def test_empty
     stack = Stack.new
     assert stack.empty? == true

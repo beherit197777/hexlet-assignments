@@ -2,7 +2,7 @@
 
 class Stack
   attr_reader :elements
-  
+
   def initialize(elements = [])
     @elements = elements
   end

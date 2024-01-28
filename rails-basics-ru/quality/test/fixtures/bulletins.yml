@@ -1,0 +1,7 @@
+bulletin_one:
+  title: "Test Bulletin 1"
+  description: "This is a test bulletin."
+
+bulletin_two:
+  title: "Test Bulletin 2"
+  description: "This is another test bulletin."

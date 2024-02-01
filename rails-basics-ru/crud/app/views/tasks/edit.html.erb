@@ -1,0 +1,35 @@
+<h1>Редактирование задачи</h1>
+
+<%= form_with model: @task, url: task_path(@task), method: :put do |form| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2>Ошибка при обновлении задачи:</h2>
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Task::STATUSES %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Обновить" %>
+  </div>
+<% end %>
+
+<p><%= link_to "Назад к задаче", @task %></p>

@@ -1,0 +1,9 @@
+<h1><%= @task.name %></h1>
+
+<p><strong>Описание:</strong> <%= @task.description %></p>
+
+<p><strong>Статус:</strong> <%= @task.status %></p>
+
+<p><%= link_to "Редактировать", edit_task_path(@task) %></p>
+
+<p><%= link_to "Назад к списку задач", tasks_path %></p>

@@ -13,11 +13,9 @@ Dog.object_id
 ## Поиск метода объекта
 
 class Cat
-
   def count_legs
     4
   end
-
 end
 
 cat = Cat.new
@@ -32,7 +30,7 @@ Cat.class.ancestors
 first_cat = Cat.new
 second_cat = Cat.new
 def first_cat.meow
-  "meow"
+  'meow'
 end
 
 first_cat.meow
@@ -102,11 +100,9 @@ Cat.has_home?
 
 ### Добавление метода экземпляру
 class Cat
-
   define_method 'eat' do |food|
     "#{food}'s yammy!"
   end
-
 end
 
 cat = Cat.new
@@ -114,35 +110,34 @@ cat.eat 'whiskas'
 
 ### Чтение переменной экземпляра
 class Cat
-  def initialize string
+  def initialize(string)
     @color = string
   end
 end
 
-cat = Cat.new("black")
-cat.instance_variable_get "@color"
+cat = Cat.new('black')
+cat.instance_variable_get '@color'
 
 ### Запись переменной экземпляра
 class Cat
 end
 
-cat = Cat.new()
-cat.instance_variable_set "@color", "black"
+cat = Cat.new
+cat.instance_variable_set '@color', 'black'
 
 ### Добавление методов классу
 class Cat
-
   def self.my_attr_accessor *attributes
     attributes.each do |attribute|
       # Getter
       define_method attribute do
-        self.instance_variable_get "@#{attribute}"
+        instance_variable_get "@#{attribute}"
       end
       ########
 
       # Setter
       define_method "#{attribute}=" do |value|
-        self.instance_variable_set "@#{attribute}", value
+        instance_variable_set "@#{attribute}", value
       end
       ########
     end
@@ -150,10 +145,11 @@ class Cat
 
   my_attr_accessor :name, :age, :weight
 
-  def initialize name, age, weight
-    @name, @age, @weight = name, age, weight
+  def initialize(name, age, weight)
+    @name = name
+    @age = age
+    @weight = weight
   end
-
 end
 
 # ### method_missing
@@ -162,8 +158,9 @@ end
 
 class StringInquirer < String
   private
+
   def method_missing(method_name, *arguments)
-    if method_name.to_s.end_with?("?")
+    if method_name.to_s.end_with?('?')
       self == method_name[0..-2]
     else
       super
@@ -175,7 +172,7 @@ mammal = StringInquirer.new('cat')
 mammal.cat? # true
 mammal.dog? # false
 
-mammal.methods.include? :cat? #false
+mammal.methods.include? :cat? # false
 
 # Alias, alias_method
 # https://bigbinary.com/blog/alias-vs-alias-method
@@ -185,7 +182,6 @@ mammal.methods.include? :cat? #false
 # https://www.youtube.com/watch?v=qbAcpubjLJU
 
 # HOMEWORK: hexlet program download rails metaprogramming
-
 
 class User
   def log_vk_auth
@@ -201,7 +197,7 @@ class User
   end
 
   # с использованием active support
-  %w(vk facebook twitter).each do |network|
+  %w[vk facebook twitter].each do |network|
     define_method "log(#{network}_auth" do
       "Loggers::#{network.capitalize}".constantize
     end

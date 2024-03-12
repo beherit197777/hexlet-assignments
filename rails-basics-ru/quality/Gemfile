@@ -41,7 +41,6 @@ end
 
 group :test do
   gem 'minitest-power_assert'
-  gem 'rails-controller-testing'
 end
 
 gem 'rexml', '~> 3.2', '>= 3.2.4'

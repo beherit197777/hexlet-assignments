@@ -3,6 +3,10 @@
 Rails.application.routes.draw do
   resources :tasks
   root 'home#index'
+  get '/tasks', to: 'tasks#index'
+
+  # get 'tasks/:id', to: 'tasks#show', as: 'task_show'
+
   # BEGIN
 
   # END

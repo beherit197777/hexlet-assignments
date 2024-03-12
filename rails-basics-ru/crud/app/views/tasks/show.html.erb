@@ -4,6 +4,6 @@
 
 <p><strong>Статус:</strong> <%= @task.status %></p>
 
-<p><%= link_to "Редактировать", edit_task_path(@task) %></p>
+<p><%= link_to "Редактировать", tasks_path(@task) %></p>
 
-<p><%= link_to "Назад к списку задач", tasks_path %></p>
+<p><%= link_to "Назад к списку задач", task_path %></p>

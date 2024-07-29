@@ -1,46 +1,62 @@
 # frozen_string_literal: true
-
-# BEGIN
-require 'virtus'
+require 'date'
 
 module Model
-  include Virtus.model
-
   def self.included(base)
     base.extend(ClassMethods)
   end
 
   module ClassMethods
     def attribute(name, options = {})
-      attribute_name = name.to_sym
-      attribute(attribute_name, options[:type] || Virtus::Attribute::Object)
-      define_method(name) { send(attribute_name) }
-      define_method("#{name}=") { |value| send("#{attribute_name}=", value) }
+      @attributes ||= {}
+      @attributes[name] = options
+
+      define_method(name) do
+        value = instance_variable_get("@#{name}")
+        if value.nil?
+          nil
+        else
+          convert_type(value, options[:type])
+        end
+      end
+
+      define_method("#{name}=") do |value|
+        instance_variable_set("@#{name}", value)
+      end
+    end
+
+    def attributes
+      @attributes
     end
   end
 
-  def initialize(attributes = {})
-    super(attributes)
+  def initialize(attrs = {})
+    self.class.attributes.each do |name, _options|
+      send("#{name}=", attrs[name]) if attrs.key?(name)
+    end
   end
 
   def attributes
-    attribute_hash = self.class.attribute_set.each_with_object({}) do |attribute, result|
-      name = attribute.name.to_s
-      result[name] = send(name) unless send(name).nil?
+    self.class.attributes.each_with_object({}) do |(name, options), result|
+      value = send(name)
+      result[name] = value.nil? ? nil : convert_type(value, options[:type])
     end
-
-    apply_virtus_coercions(attribute_hash)
   end
 
   private
 
-  def apply_virtus_coercions(attributes)
-    self.class.attribute_set.each_with_object({}) do |attribute, result|
-      name = attribute.name.to_s
-      value = attributes[name]
-      coerced_value = attribute.coerce(value) unless value.nil?
-      result[name] = coerced_value
+  def convert_type(value, type)
+    return value unless type
+
+    case type
+    when :integer then value.to_i
+    when :float then value.to_f
+    when :string then value.to_s
+    when :datetime then DateTime.parse(value)
+    else value
     end
   end
 end
-# END
+
+
+

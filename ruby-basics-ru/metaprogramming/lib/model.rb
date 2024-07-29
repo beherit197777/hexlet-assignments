@@ -49,22 +49,22 @@ module Model
     case type
     when :datetime
       if value.is_a?(DateTime)
-        value.strftime("%Y-%m-%d %H:%M:%S") # Преобразуем DateTime в строку
+        value.strftime("%Y-%m-%d %H:%M:%S")
       elsif value.is_a?(String)
-        DateTime.parse(value) # Преобразуем строку в DateTime
+        DateTime.parse(value) 
       else
         raise TypeError, "Expected DateTime or String, got #{value.class}"
       end
     when :string
-      value.to_s # Преобразуем значение в строку
+      value.to_s 
     when :integer
       if value.is_a?(Integer)
-        value # Возвращаем значение как есть
+        value 
       else
         raise TypeError, "Expected Integer, got #{value.class}"
       end
     when :boolean
-      !!value # Преобразуем в boolean (true/false)
+      !!value 
     else
       raise TypeError, "Unsupported type: #{type}"
     end

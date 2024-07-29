@@ -54,8 +54,13 @@ module Model
         raise TypeError, "Expected DateTime, got #{value.class}"
       end
     when :string
-      # Логика для обработки строки
-      value.to_s
+      value.to_s # Преобразуем значение в строку
+    when :integer
+      if value.is_a?(Integer)
+        value # Возвращаем значение как есть
+      else
+        raise TypeError, "Expected Integer, got #{value.class}"
+      end
     else
       raise TypeError, "Unsupported type: #{type}"
     end

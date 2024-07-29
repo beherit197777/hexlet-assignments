@@ -45,15 +45,14 @@ module Model
 
   private
 
-  def convert_type(value, type)
-    return value unless type
-
-    case type
-    when :integer then value.to_i
-    when :float then value.to_f
-    when :string then value.to_s
-    when :datetime then DateTime.parse(value)
-    else value
+  def convert_type(value)
+    if value.is_a?(DateTime)
+      value.strftime("%Y-%m-%d %H:%M:%S") # Преобразуем DateTime в строку
+    elsif value.is_a?(String)
+      # Логика для обработки строки
+      value
+    else
+      raise TypeError, "Unsupported type: #{value.class}"
     end
   end
 end

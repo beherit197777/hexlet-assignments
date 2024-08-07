@@ -1,0 +1,20 @@
+= content_for :title do
+  = 'Posts'
+
+table.table.table-striped.table-hover.mb-5
+  thead
+    tr
+      th{ scope = 'col' } #
+      th{ scope = 'col' } Title
+      th
+
+  tbody
+    - @posts.each_with_index do |post, i|
+      tr
+        th{ scope = 'row' } = i + 1
+        td = post.title
+        td.d-flex
+          .me-4 = link_to 'Show', post
+          .me-4 = link_to 'Edit', edit_post_path(post)
+          = button_to 'Sign Out', post, method: :delete, data: { confirm: "Вы уверены?" }
+= link_to 'New Post', new_post_path, class: 'btn btn-primary'

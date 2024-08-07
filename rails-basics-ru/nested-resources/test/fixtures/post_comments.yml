@@ -1,0 +1,4 @@
+one:
+  body: "This is a comment"
+  name: "Commenter"
+  post: one

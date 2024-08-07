@@ -3,8 +3,9 @@
 Rails.application.routes.draw do
   root 'homes#index'
   # BEGIN
-    resources :posts do
-      resources :post_comments, controller: 'posts/comments', only: [:create, :edit, :update, :destroy]
-    end
+  resources :posts, shallow: true do
+    resources :post_comments, as: :comments, only: %i[create new index]
+    resources :post_comments, only: %i[edit destroy show update]
+  end
   # END
 end

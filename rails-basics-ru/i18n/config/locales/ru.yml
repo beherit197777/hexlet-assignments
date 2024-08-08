@@ -5,7 +5,7 @@ ru:
   edit: Редактировать
   home:
     index:
-      home_page: Домашняя страница
+      home_page: Домой
   layouts:
     application:
       hexlet_title: © Хекслет

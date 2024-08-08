@@ -1,4 +1,13 @@
 = content_for :title do
   / BEGIN
-  = t('.home_page')
+  h1 = t('.home_page')
+
+  ul.nav
+    li= t('layouts.shared.nav.home')
+    li= t('layouts.shared.nav.posts')
+    li= t('layouts.shared.nav.new_post_link')
   / END
+
+/ ul.nav
+/   li= t('layouts.shared.nav.home')
+/   li= t('layouts.shared.nav.posts')

@@ -1,7 +1,7 @@
 en:
   posts:
     # BEGIN
-     index:
+    index:
       new_post_link: New Post
       page_title: Posts
       posts_links: Post link
@@ -10,27 +10,27 @@ en:
         zero: no comments
         one: '%{count} comment'
         other: '%{count} comments'
-     edit:
+    edit:
       title: Edit Post
 
-     create:
+    create:
       success: Post was created.
 
-     new:
+    new:
       title: New Post
 
-     update:
+    update:
       success: Post was updated.
 
-     destroy:
+    destroy:
       success: Post was destroyed.
 
-     show:
+    show:
       body: Body
       comments: Comments
     # END
 
-     comments:
+    comments:
       edit:
         title: Editing comment
 

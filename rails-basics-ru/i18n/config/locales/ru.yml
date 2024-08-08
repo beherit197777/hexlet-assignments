@@ -4,8 +4,8 @@ ru:
   destroy_confirmation: Вы уверены?
   edit: Редактировать
   home:
-    index:
-      home_page: Домой
+   index:
+      home_page: Домашняя страница
   layouts:
     application:
       hexlet_title: © Хекслет
@@ -14,5 +14,6 @@ ru:
         home: Домой
         posts: Посты
         hexlet_logo: Хекслет лого
+        new_post_link: Новый пост
   show: Показать
    

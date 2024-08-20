@@ -1,56 +1,38 @@
 # frozen_string_literal: true
-
-require 'open-uri'
+#require 'open-uri'
 
 class Hacker
   class << self
-    def self.hack(email, password)
-      new(email, password).hack
-    end
-  
-    def initialize(email, password)
-      @email = email
-      @password = password
-      @http = Net::HTTP.new(URI(BASE_URL).host, URI(BASE_URL).port)
-    end
-  
-    def hack
-      csrf_token, cookies = get_csrf_token_and_cookies
-      register_user(csrf_token, cookies)
-    end
-  
-    private
-  
-    def get_csrf_token_and_cookies
-      response = @http.get('/users/sign_up')
-      cookies = response['set-cookie']
-      
-      doc = Nokogiri::HTML(response.body)
-      csrf_token = doc.at('meta[name="csrf-token"]')['content']
-      
-      [csrf_token, cookies]
-    end
-  
-    def register_user(csrf_token, cookies)
-      headers = {
-        'Cookie' => cookies,
-        'X-CSRF-Token' => csrf_token,
-        'Content-Type' => 'application/x-www-form-urlencoded'
+    def hack(email, password)
+      # BEGIN
+      hostname = 'https://rails-collective-blog-ru.hexlet.app'
+      sign_up_path = '/users/sign_up'
+      users_path = '/users'
+
+      uri = URI(hostname)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+      request = Net::HTTP::Get.new URI.join(hostname, sign_up_path)
+      response = http.request request
+      cookie = response.response['set-cookie'].split('; ')[0]
+
+      page = Nokogiri::HTML(response.body)
+      authenticity_token = page.at('input[@name="authenticity_token"]')['value']
+      post_params = {
+        authenticity_token: ,
+        'user[email]' => email,
+        'user[password]' => password,
+        'user[password_confirmation]' => password,
       }
-  
-      body = URI.encode_www_form({
-        'user[email]' => @email,
-        'user[password]' => @password,
-        'user[password_confirmation]' => @password
-      })
-  
-      response = @http.post('/users', body, headers)
-      
-      if response.code == '302' && response['location'].include?('/posts')
-        puts "User successfully registered with email: #{@email}"
-      else
-        puts "Registration failed. Response code: #{response.code}"
-      end # BEGIN
+
+      request = Net::HTTP::Post.new URI.join(hostname, users_path)
+      request.body = URI.encode_www_form(post_params)
+      request['Cookie'] = cookie
+
+      http.request request
+      # END
+    end
   end
-end
 end

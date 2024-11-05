@@ -35,3 +35,8 @@ Metrics/AbcSize:
 
 Style/YodaCondition:
   Enabled: false
+
+  AllCops:
+    SuggestExtensions: false
+
+

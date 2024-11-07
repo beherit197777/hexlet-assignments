@@ -62,10 +62,17 @@ class Web::UsersController < Web::ApplicationController
 
   # BEGIN
   def stream_csv
-    response.headers['Content-Type'] = 'text/event-stream'
-    response.headers["Last-Modified"] = Time.current.httpdate
-    response.headers['Content-Disposition'] = 'attachment; filename="users.csv"'
-    response.stream.write CSV.generate_line(User.column_names)
+    response.headers['Content-Type'] = 'text/csv'
+    response.headers['Content-Disposition'] = 'attachment; filename="report.csv"'
+    response.headers['Last-Modified'] = User.maximum(:updated_at).httpdate
+
+    response.stream.write CSV.generate_line(['ID', 'Name', 'Email', 'Created At', 'Updated At'])
+
+    User.find_each(batch_size: 1000) do |user|
+      response.stream.write CSV.generate_line([user.id, user.name, user.email, user.created_at, user.updated_at])
+    end
+  ensure
+    response.stream.close
     end
   # END
 

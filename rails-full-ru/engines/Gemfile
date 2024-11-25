@@ -44,7 +44,8 @@ gem 'slim-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
@@ -78,4 +79,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'rails_stats', path: 'engines/rails_stats'
 # END
 
-gem "blog", path: "engines/blog"
+gem 'blog', path: 'engines/blog'

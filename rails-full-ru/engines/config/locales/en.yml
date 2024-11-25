@@ -6,3 +6,8 @@ en:
   edit: Edit
   show: Show
   title: Engines
+  notices:
+    post:
+      created: "Post was successfully created."
+      updated: "Post was successfully updated."
+      destroyed: "Post was successfully destroyed."

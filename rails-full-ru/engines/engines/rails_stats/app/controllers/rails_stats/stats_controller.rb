@@ -6,7 +6,6 @@ module RailsStats
   class StatsController < ApplicationController
     def index
       @stats_output = `bin/rails stats`
-      render plain: @stats_output
     end
   end
 end

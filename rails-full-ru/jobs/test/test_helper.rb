@@ -5,7 +5,8 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 # BEGIN
-
+require 'webmock/minitest'
+WebMock.disable_net_connect!(allow_localhost: true)
 # END
 
 module ActiveSupport
